@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct TaskRowView: View {
-    @Binding var task: Task
+    @Bindable var task: Task
+    /// Model Context
+    @Environment(\.modelContext) private var context
     var body: some View {
         HStack(alignment: .top, spacing: 15) {
             Circle()
@@ -19,6 +21,8 @@ struct TaskRowView: View {
             /// Invisible button to be more accessible
                 .overlay {
                     Circle()
+                        .foregroundStyle(.clear)
+                        .  contentShape(.circle)
                         .frame(width: 50, height: 50)
                         .blendMode(.destinationOver)
                         .onTapGesture {
@@ -40,8 +44,16 @@ struct TaskRowView: View {
             })
             .padding(15)
             .hSpacing(.leading)
-            .background(task.tint, in: .rect(topLeadingRadius: 15, bottomLeadingRadius: 15))
+            .background(task.tintColor, in: .rect(topLeadingRadius: 15, bottomLeadingRadius: 15))
             .strikethrough(task.isCompleted, pattern: .solid, color: .black)
+            .contentShape(.contextMenuPreview, .rect(cornerRadius: 15))
+            .contextMenu {
+                Button( "Delete Task", role: .destructive) {
+                    /// Deleting task
+                    context.delete(object: task)
+                    try? context.save()
+                }
+            }
             .offset(y: -8)
         }
     }

@@ -6,24 +6,35 @@
 //
 
 import SwiftUI
+import SwiftData
 
-struct Task: Identifiable {
-    var id: UUID = .init()
-    var taskTitle: String
-    var creationDate: Date = .init()
-    var isCompleted: Bool = false
-    var tint: Color
+@Model
+class Task: Identifiable {
+    var id: UUID
+    var taskTitle: String = ""
+    var creationDate: Date
+    var isCompleted: Bool
+    var tint: String
+    
+    init(id: UUID = .init(), taskTitle: String = "", creationDate: Date = .init(), isCompleted: Bool = false, tint: String) {
+        self.id = id
+        self.taskTitle = taskTitle
+        self.creationDate = creationDate
+        self.isCompleted = isCompleted
+        self.tint = tint
+    }
+    
+    var tintColor: Color {
+        switch tint {
+        case "TaskColor 1": return .taskColor1
+        case "TaskColor 2": return .taskColor2
+        case "TaskColor 3": return .taskColor3
+        case "TaskColor 4": return .taskColor4
+        case "TaskColor 5": return .taskColor5
+        default: return .black
+        }
+    }
 }
-
-var sampleTasks: [Task] = [
-    .init(taskTitle: "Record video", creationDate: .updateHour(-5), isCompleted: true, tint: .taskColor1),
-    .init(taskTitle: "Redesign website", creationDate: .updateHour(-3), isCompleted: false, tint: .taskColor2),
-    .init(taskTitle: "Do an app", creationDate: .updateHour(-4), isCompleted: true, tint: .taskColor3),
-    .init(taskTitle: "Study", creationDate: .updateHour(0), isCompleted: false, tint: .taskColor4),
-    .init(taskTitle: "Study more", creationDate: .updateHour(3), isCompleted: true, tint: .taskColor4),
-    .init(taskTitle: "Play PS5", creationDate: .updateHour(2), isCompleted: false, tint: .taskColor1),
-    .init(taskTitle: "Learn piano", creationDate: .updateHour(1), isCompleted: true, tint: .taskColor5)
-]
 
 extension Date {
     static func updateHour(_ value: Int) -> Date {
