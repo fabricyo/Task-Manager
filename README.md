@@ -7,7 +7,7 @@ App done following KavSoft's video
 https://www.youtube.com/watch?v=sbheMzA3jTI
 
 
-![Screenshot](screenshot/home.jpeg)
+![Screenshot](screenshots/home.jpeg)
 
 
-![Screenshot](screenshot/adding_task.jpeg)
+![Screenshot](screenshots/adding_task.jpeg)
